@@ -27,14 +27,14 @@ var appbaseSearchFactory = function ($http) {
                       }
                     }, {
                       "wildcard": {
-                        "titulo": { "value" : text !== "" ? "*" + text + "*" : null, "boost" : 2.0 }
+                        "titulo": { "value" : text !== "" ? "*" + text + "*" : null, "boost" : 30.0 }
                       }
                     }, {
                       match: {
                         titulo: {
                           query: text,
                           fuzziness: 1,
-                          boost: 2.0
+                          boost: 30.0
                         }
                       }
                     }
