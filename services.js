@@ -19,7 +19,7 @@ var appbaseSearchFactory = function ($http) {
                         "texto_frame": text !== "" ? "*" + text + "*" : null
                       }
                     }, {
-                      match_phrase: {
+                      match: {
                         texto_frame : {
                           query: text,
                           "fuzziness" : 1
