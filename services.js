@@ -19,10 +19,10 @@ var appbaseSearchFactory = function ($http) {
                         "texto_frame": text !== "" ? "*" + text + "*" : null
                       }
                     }, {
-                      match: {
+                      match_phrase: {
                         texto_frame : {
                           query: text,
-                          "fuzziness" : 2
+                          "fuzziness" : 1
                         }
                       }
                     }
