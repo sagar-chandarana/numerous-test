@@ -20,9 +20,21 @@ var appbaseSearchFactory = function ($http) {
                       }
                     }, {
                       match: {
-                        texto_frame : {
+                        texto_frame: {
                           query: text,
-                          "fuzziness" : 1
+                          "fuzziness": 1
+                        }
+                      }
+                    }, {
+                      "wildcard": {
+                        "titulo": { "value" : text !== "" ? "*" + text + "*" : null, "boost" : 2.0 }
+                      }
+                    }, {
+                      match: {
+                        titulo: {
+                          query: text,
+                          fuzziness: 1,
+                          boost: 2.0
                         }
                       }
                     }

@@ -10,7 +10,7 @@
     </form>
     <ul>
       <li ng-repeat="partner in partners">
-        <h3>{{partner._source.titulo}}</h3>
+        <h3 ng-bind="partner._source.titulo"></h3>
         <div ng-repeat="hl in partner.highlight.texto_frame">
           ...<span ng-bind-html="hl"></span>...
         </div>
