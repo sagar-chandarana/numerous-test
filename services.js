@@ -20,7 +20,10 @@ var appbaseSearchFactory = function ($http) {
                       }
                     }, {
                       match: {
-                        texto_frame: text
+                        texto_frame : {
+                          query: text,
+                          "fuzziness" : 2
+                        }
                       }
                     }
                   ]
