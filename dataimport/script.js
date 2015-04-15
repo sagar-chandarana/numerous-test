@@ -2,8 +2,7 @@ appbase = require('appbasejs');
 appbase.credentials('meliuzmock','85acf56fc7b30e24078ffd4163d64e2a');
 async = require('async');
 
-partners = [require('./partners1.js')];
-offers = [require('./oferta_1.js')];
+partners = [require('./me_reembolso.json')];
 
 var opsToPerform = [];
 
@@ -17,8 +16,7 @@ var batch = function (namespace, array) {
   array.forEach(store.bind(null, namespace));
 }
 
-partners.forEach(batch.bind(null, 'partner'));
-offers.forEach(batch.bind(null, 'oferta'));
+partners.forEach(batch.bind(null, 'partner_new_data'));
 
 async.parallelLimit(opsToPerform, 100, function (err) {
   console.log(err);
