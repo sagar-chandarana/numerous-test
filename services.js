@@ -9,45 +9,70 @@ var appbaseSearchFactory = function ($http) {
           'Appbase-Secret': "85acf56fc7b30e24078ffd4163d64e2a"
         },
         data: {
-          query: {
-            namespaces: ["partner"],
+          query: !window.que ? {
+            namespaces: ["partner_new_data"],
             "body": {
+              "sort": [
+                /*{
+                  "is_commissioned": "desc"
+                },*/
+                "_score"
+              ],
               query: {
-                bool: {
-                  should: [{
-                      "wildcard": {
-                        "texto_frame": text !== "" ? "*" + text + "*" : null
-                      }
-                    }, {
-                      match: {
-                        texto_frame: {
-                          query: text,
-                          "fuzziness": 1
+                "function_score": {
+                  query: {
+                    bool: {
+                      should: [
+                        {
+                          "wildcard": {
+                            "text": "*" + text + "*"
+                          }
+                        }, {
+                          match: {
+                            text: {
+                              query: text,
+                              "fuzziness": 1,
+                              "operator" : "and"
+                            }
+                          }
+                        }, {
+                          "wildcard": {
+                            "titulo": {
+                              "value": "*" + text + "*",
+                              "boost": 30.0
+                            }
+                          }
+                        }, {
+                          match: {
+                            titulo: {
+                              query: text,
+                              fuzziness: 1,
+                              "operator" : "and",
+                              boost: 30.0
+                            }
+                          }
                         }
-                      }
-                    }, {
-                      "wildcard": {
-                        "titulo": { "value" : text !== "" ? "*" + text + "*" : null, "boost" : 30.0 }
-                      }
-                    }, {
-                      match: {
-                        titulo: {
-                          query: text,
-                          fuzziness: 1,
-                          boost: 30.0
-                        }
-                      }
+                      ]
                     }
+                  },
+                  functions: [
+                    /*{
+                      "field_value_factor": {
+                        "field": "cashback",
+                        "factor": 3,
+                        "modifier": "log"
+                      }
+                    }*/
                   ]
                 }
               },
               "highlight": {
                 "fields": {
-                  "texto_frame": {}
+                  "text": {}
                 }
               }
             }
-          }
+          } : window.que
         }
       }
 
