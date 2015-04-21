@@ -1,6 +1,8 @@
 angular.module('Meliuz', ['ngSanitize'])
-.controller('body', [ "$scope" , "appbaseSearch", bodyCtrl])
-.factory('appbaseSearch', ["$http", appbaseSearchFactory])
+.factory('queryMaker', [queryMakerFactory])
+.factory('appbaseSearch', ["$http", 'queryMaker', appbaseSearchFactory])
+.factory('ESearch', ["$http", 'queryMaker', ESearchFactory])
+.controller('body', [ "$scope" , "appbaseSearch", "ESearch", bodyCtrl])
 .filter('trustElement', function ($sce) {
     return function (value) {
         return $sce.trustAsHtml(value);

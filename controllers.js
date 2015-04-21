@@ -1,7 +1,8 @@
-var bodyCtrl = function ($scope, search) {
+var bodyCtrl = function ($scope, appbaseSearch, ESearch) {
   $scope.search = function () {
     if ($scope.text !== "") {
-      search.search($scope.text, function (error, results) {
+      var chosenSource = config.chooseES? ESearch : appbaseSearch;
+      chosenSource.search($scope.text, function (error, results) {
         if (error) {
           return console.log(error);
         }

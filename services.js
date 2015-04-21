@@ -1,61 +1,49 @@
-var appbaseSearchFactory = function ($http) {
+var queryMakerFactory = function () {
   return {
-    search: function (text, callback) {
-      var req = {
-        method: 'POST',
-        url: 'https://api.appbase.io/meliuzmock/v2_1/~rawsearch',
-        headers: {
-          'Content-Type': "application/json",
-          'Appbase-Secret': "85acf56fc7b30e24078ffd4163d64e2a"
-        },
-        data: {
-          query: !window.que ? {
-            namespaces: ["partner_new_data"],
-            "body": {
-              "sort": [
+    make: function (text) {
+      return {
+        "sort": [
                 /*{
                   "is_commissioned": "desc"
                 },*/
                 "_score"
               ],
-              query: {
-                "function_score": {
-                  query: {
-                    bool: {
-                      should: [
-                        {
-                          "wildcard": {
-                            "text": "*" + text + "*"
-                          }
-                        }, {
-                          match: {
-                            text: {
-                              query: text,
-                              "fuzziness": 1,
-                              "operator" : "and"
-                            }
-                          }
-                        }, {
-                          "wildcard": {
-                            "titulo": {
-                              "value": "*" + text + "*",
-                              "boost": 30.0
-                            }
-                          }
-                        }, {
-                          match: {
-                            titulo: {
-                              query: text,
-                              fuzziness: 1,
-                              "operator" : "and",
-                              boost: 30.0
-                            }
-                          }
-                        }
-                      ]
+        query: {
+          "function_score": {
+            query: {
+              bool: {
+                should: [
+                  {
+                    "wildcard": {
+                      "extended": "*" + text + "*"
                     }
-                  },
-                  functions: [
+                  }, {
+                    match: {
+                      extended: {
+                        query: text
+                      }
+                    }
+                  }, {
+                    "wildcard": {
+                      "titulo": {
+                        "value": "*" + text + "*",
+                        "boost": 30.0
+                      }
+                    }
+                  }, {
+                    match: {
+                      titulo: {
+                        query: text,
+                        fuzziness: 1,
+                        "operator": "and",
+                        boost: 30.0
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            functions: [
                     /*{
                       "field_value_factor": {
                         "field": "cashback",
@@ -64,19 +52,55 @@ var appbaseSearchFactory = function ($http) {
                       }
                     }*/
                   ]
-                }
-              },
-              "highlight": {
-                "fields": {
-                  "text": {}
-                }
-              }
-            }
-          } : window.que
+          }
+        },
+        "highlight": {
+          "fields": {
+            "text": {}
+          }
+        }
+      }
+    }
+
+  }
+}
+
+var appbaseSearchFactory = function ($http, queryMaker) {
+  return {
+    search: function (text, callback) {
+      var req = {
+        method: 'POST',
+        url: 'https://api.appbase.io/' + config.ab.app + '/v2_1/~rawsearch',
+        headers: {
+          'Content-Type': "application/json",
+          'Appbase-Secret': config.ab.secret
+        },
+        data: {
+          query: {
+            namespaces: ["partner_new_data"],
+            "body": queryMaker.make(text)
+          }
         }
       }
 
       $http(req).success(callback.bind(null, null)).error(callback);
     }
+  }
+}
+
+var ESearchFactory = function ($http, queryMaker) {
+  return {
+    search: function (text, callback) {
+      var req = {
+        method: 'POST',
+        url: config.es.url + '/_search',
+        headers: {
+          'Content-Type': "application/json"
+        },
+        data: queryMaker.make(text)
+      }
+      $http(req).success(callback.bind(null, null)).error(callback);
+    }
+
   }
 }
