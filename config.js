@@ -1,6 +1,6 @@
 window.config = {
   es : {
-    url: 'http://localhost:9200/meliuztest'
+    url: 'http://ivy.sagar.ch:9200/meliuz-ivy1'
   },
   ab: {
     app: 'meliuzmock',

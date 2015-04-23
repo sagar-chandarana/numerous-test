@@ -15,11 +15,22 @@ var queryMakerFactory = function () {
                 should: [
                   {
                     "wildcard": {
-                      "extended": "*" + text + "*"
+                      "text": "*" + text + "*"
                     }
                   }, {
                     match: {
-                      extended: {
+                      text: {
+                        query: text
+                      }
+                    }
+                  },
+                  {
+                    "wildcard": {
+                      "description": "*" + text + "*"
+                    }
+                  }, {
+                    match: {
+                      description: {
                         query: text
                       }
                     }
@@ -56,7 +67,8 @@ var queryMakerFactory = function () {
         },
         "highlight": {
           "fields": {
-            "text": {}
+            "text": {},
+            "description": {}
           }
         }
       }

@@ -1,26 +1,41 @@
 <html ng-app="Meliuz">
-  <head>
-    <title>Meliuz search</title>
-    <link rel=stylesheet type="text/css" href="main.css">
-  </head>
-  <body ng-controller="body">
-    <form ng-submit="search()">
-      <input ng-model="text" />
-      <input type="submit" />
-    </form>
-    <ul>
-      <li ng-repeat="partner in partners">
-        <h3 ng-bind="partner._source.titulo"></h3>
-        <div ng-repeat="hl in partner.highlight.text">
-          ...<span ng-bind-html="hl | trustElement"></span>...
+
+<head>
+  <title>Meliuz search</title>
+  <link rel=stylesheet type="text/css" href="main.css">
+</head>
+
+<body ng-controller="body">
+  <form ng-submit="search()">
+    <input ng-model="text" />
+    <input type="submit" />
+  </form>
+  <ul>
+    <li ng-repeat="partner in partners">
+      <h2 ng-bind="partner._source.titulo"></h3>
+      <div ng-if="partner.highlight.text.length">
+        Matches in "text"
+        <hr>
+        <div ng-repeat="hlT in partner.highlight.text">
+          ...<span ng-bind-html="hlT | trustElement"></span>...
         </div>
-      </li>
-    </ul>
-    <script src="config.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-sanitize.js"></script>
-    <script src="services.js"></script>
-    <script src="controllers.js"></script>
-    <script src="main.js"></script>
-  </body>
+      </div>
+      <div ng-if="partner.highlight.description.length">
+        <hr>
+        Matches in "description"
+        <hr>
+        <div ng-repeat="hlD in partner.highlight.description">
+          ...<span ng-bind-html="hlD | trustElement"></span>...
+        </div>
+        <hr>
+      </div>
+    </li>
+  </ul>
+  <script src="config.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-sanitize.js"></script>
+  <script src="services.js"></script>
+  <script src="controllers.js"></script>
+  <script src="main.js"></script>
+</body>
 </html>

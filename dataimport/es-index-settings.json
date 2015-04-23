@@ -1,0 +1,79 @@
+{
+  "mappings": {
+    "partner": {
+      "properties": {
+        "cashback": {
+          "type": "double"
+        },
+        "clicks": {
+          "type": "long"
+        },
+        "description": {
+          "type": "string",
+          "analyzer": "meliuz_analyzer"
+        },
+        "id": {
+          "type": "long"
+        },
+        "is_commissioned": {
+          "type": "long"
+        },
+        "ref": {
+          "type": "string"
+        },
+        "site": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string",
+          "analyzer": "meliuz_analyzer"
+        },
+        "titulo": {
+          "type": "string",
+          "analyzer": "meliuz_analyzer"
+        },
+        "total_sale": {
+          "type": "long"
+        }
+      }
+    }
+  },
+  "settings": {
+    "index": {
+      "analysis": {
+        "filter": {
+          "brazilian_stop": {
+            "type": "stop",
+            "stopwords": "_brazilian_"
+          },
+          "brazilian_stemmer": {
+            "type": "stemmer",
+            "language": "brazilian"
+          }
+        },
+        "analyzer": {
+          "meliuz_analyzer": {
+            "filter": [
+              "lowercase",
+              //"brazilian_stop",
+              //"brazilian_stemmer"
+            ],
+            "type": "custom",
+            "tokenizer": "meliuz_tokenizer"
+          }
+        },
+        "tokenizer": {
+          "meliuz_tokenizer": {
+            "token_chars": [
+              "letter",
+              "digit"
+            ],
+            "min_gram": "2",
+            "type": "nGram",
+            "max_gram": "12"
+          }
+        }
+      }
+    }
+  }
+}

@@ -28,7 +28,7 @@ var bodyCtrl = function ($scope, appbaseSearch, ESearch) {
             }(),
             partner._source.cashback);
         })
-        console.log(results.hits.hits[0]);
+        console.log(results.hits.hits);
         console.log('---------------------');
 
         $scope.partners = results.hits.hits;

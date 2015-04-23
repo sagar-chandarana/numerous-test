@@ -1,13 +1,13 @@
 module.exports = {
   "data": {
     "sets": [{
-      "collection": "records",
+      "collection": "partner",
       "objs": require('./data/me_reembolso.json')
     }]
   },
   "es": {
-    "host": "localhost:9200",
-    "index": "meliuztest"
+    "host": "ivy.sagar.ch:9200",
+    "index": "meliuz-ivy1"
   },
   "ab": {
     "app": "meliuzmock",
