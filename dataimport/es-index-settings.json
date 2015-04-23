@@ -54,9 +54,7 @@
         "analyzer": {
           "meliuz_analyzer": {
             "filter": [
-              "lowercase",
-              //"brazilian_stop",
-              //"brazilian_stemmer"
+              "lowercase"
             ],
             "type": "custom",
             "tokenizer": "meliuz_tokenizer"

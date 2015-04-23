@@ -1,4 +1,8 @@
-var bodyCtrl = function ($scope, appbaseSearch, ESearch) {
+var bodyCtrl = function ($scope, appbaseSearch, ESearch, queryMaker) {
+  var container = document.getElementById("jsoneditor");
+  editor = new JSONEditor(container);
+  editor.setMode('code');
+  
   $scope.search = function () {
     if ($scope.text !== "") {
       var chosenSource = config.chooseES? ESearch : appbaseSearch;
@@ -40,6 +44,7 @@ var bodyCtrl = function ($scope, appbaseSearch, ESearch) {
 
   $scope.$watch('text', function (newValue, oldValue) {
     $scope.search();
+    editor.set($scope.text !== "" ? queryMaker.make($scope.text) : {})
   });
 
   $scope.text = "iphone";

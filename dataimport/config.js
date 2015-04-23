@@ -7,7 +7,7 @@ module.exports = {
   },
   "es": {
     "host": "ivy.sagar.ch:9200",
-    "index": "meliuz-ivy1"
+    "index": "meliuz-ivy2"
   },
   "ab": {
     "app": "meliuzmock",
