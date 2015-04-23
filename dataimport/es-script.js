@@ -1,5 +1,5 @@
-var util = require('./util.js');
-var config = require('./config.js');
+var util = require(__dirname + '/util.js');
+var config = require( __dirname + '/config.js');
 var es = util.es(config.es.host);
 var opsToPerform = [];
 var async = require("async");
@@ -26,7 +26,6 @@ var batch = function (collection, array) {
 config.data.sets.forEach(function (dataset) {
   batch(dataset.collection, dataset.objs);
 });
-
 
 async.parallelLimit(opsToPerform, 100, function (err) {
   err? console.log(err): console.log('SUCCESS');

@@ -1,9 +1,12 @@
 #!/bin/bash
 
+pushd "`dirname \"$0\"`"
 if [ -z "$1" ]
   then
     echo "Please provide an index name."
     exit 1
 fi
 
-node ./dataimport/es-script --index=$1
+node dataimport/es-script.js --index=$1
+
+popd
