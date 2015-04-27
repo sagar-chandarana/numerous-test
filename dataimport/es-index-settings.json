@@ -9,8 +9,20 @@
           "type": "long"
         },
         "description": {
-          "type": "string",
-          "analyzer": "meliuz_analyzer"
+          "type": "multi_field",
+          "fields": {
+            "description": {
+              "type": "string",
+              "analyzer": "standard",
+              "store" : "yes"
+            },
+            "ngram": {
+              "type": "string",
+              "analyzer": "meliuz_analyzer",
+              "term_vector": "with_positions_offsets",
+              "store" : "yes"
+            }
+          }
         },
         "id": {
           "type": "long"
@@ -25,12 +37,36 @@
           "type": "string"
         },
         "text": {
-          "type": "string",
-          "analyzer": "meliuz_analyzer"
+          "type": "multi_field",
+          "fields": {
+            "text": {
+              "type": "string",
+              "analyzer": "standard",
+              "store" : "yes"
+            },
+            "ngram": {
+              "type": "string",
+              "analyzer": "meliuz_analyzer",
+              "term_vector": "with_positions_offsets",
+              "store" : "yes"
+            }
+          }
         },
-        "titulo": {
-          "type": "string",
-          "analyzer": "meliuz_analyzer"
+        "titulo":  {
+          "type": "multi_field",
+          "fields": {
+            "titulo": {
+              "type": "string",
+              "analyzer": "standard",
+              "store" : "yes"
+            },
+            "ngram": {
+              "type": "string",
+              "analyzer": "meliuz_analyzer",
+              "term_vector": "with_positions_offsets",
+              "store" : "yes"
+            }
+          }
         },
         "total_sale": {
           "type": "long"
@@ -42,33 +78,33 @@
     "index": {
       "analysis": {
         "filter": {
-          "brazilian_stop": {
-            "type": "stop",
-            "stopwords": "_brazilian_"
+          "whitespace_remove": {
+            "type": "pattern_replace",
+            "pattern": " ",
+            "replacement": ""
           },
-          "brazilian_stemmer": {
-            "type": "stemmer",
-            "language": "brazilian"
+          "ngrams_filter": {
+            "type": "ngram",
+            "min_gram": 5,
+            "max_gram": 15
+          }
+        },
+        "tokenizer": {
+          "ngram_tokenizer": {
+            "type": "nGram",
+            "min_gram": "5",
+            "max_gram": "15",
+            "token_chars": []
           }
         },
         "analyzer": {
           "meliuz_analyzer": {
             "filter": [
-              "lowercase"
+              "lowercase",
+              "whitespace_remove"
             ],
             "type": "custom",
-            "tokenizer": "meliuz_tokenizer"
-          }
-        },
-        "tokenizer": {
-          "meliuz_tokenizer": {
-            "token_chars": [
-              "letter",
-              "digit"
-            ],
-            "min_gram": "2",
-            "type": "nGram",
-            "max_gram": "12"
+            "tokenizer": "ngram_tokenizer"
           }
         }
       }

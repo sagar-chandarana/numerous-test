@@ -1,6 +1,6 @@
 window.config = {
   es : {
-    url: 'http://ivy.sagar.ch:9200/meliuz-ivy2'
+    url: 'http://tiff.sagar.ch:9200/meliuz-ivy24'
   },
   ab: {
     app: 'meliuzmock',

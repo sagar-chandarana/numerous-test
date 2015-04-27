@@ -1,60 +1,80 @@
 var queryMakerFactory = function () {
-  return {
-    make: function (text) {
-      return {
-        "sort": [
+  var queryMaker = {};
+
+  queryMaker.set = function (json) {
+    queryMaker.query = json;
+  };
+
+  queryMaker.make = function (text) {
+    console.log('making..')
+    text = text.toLowerCase();
+    return queryMaker.query ? queryMaker.query : {
+      "sort": [
                 /*{
                   "is_commissioned": "desc"
                 },*/
                 "_score"
               ],
-        query: {
-          "function_score": {
-            query: {
-              bool: {
-                should: [
-                  {
-                    "wildcard": {
-                      "text": "*" + text + "*"
-                    }
-                  }, {
-                    match: {
-                      text: {
-                        query: text
-                      }
-                    }
-                  },
-                  {
-                    "wildcard": {
-                      "description": "*" + text + "*"
-                    }
-                  }, {
-                    match: {
-                      description: {
-                        query: text
-                      }
-                    }
-                  }, {
-                    "wildcard": {
-                      "titulo": {
-                        "value": "*" + text + "*",
-                        "boost": 30.0
-                      }
-                    }
-                  }, {
-                    match: {
-                      titulo: {
-                        query: text,
-                        fuzziness: 1,
-                        "operator": "and",
-                        boost: 30.0
-                      }
+      query: {
+        "function_score": {
+          query: {
+            bool: {
+              should: [
+                {
+                  match: {
+                    text: {
+                      query: text,
+                      fuzziness: .9
                     }
                   }
-                ]
-              }
-            },
-            functions: [
+                },
+                {
+                  term: {
+                    "text.ngram" : text
+                  }
+                },
+                {
+                  match: {
+                    "text.ngram": {
+                      query: text,
+                      fuzziness: .9
+                    }
+                  }
+                },
+                {
+                  match: {
+                    description: {
+                      query: text,
+                      fuzziness: .9
+                    }
+                  }
+                },
+                {
+                  term: {
+                    "description.ngram": text
+                  }
+                },
+                {
+                  term: {
+                    "titulo.ngram": {
+                      value: text,
+                      boost: 30.0
+                    }
+                  }
+                },
+                {
+                  match: {
+                    titulo: {
+                      query: text,
+                      fuzziness: .9,
+                      boost: 30.0
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          functions: [
                     /*{
                       "field_value_factor": {
                         "field": "cashback",
@@ -63,18 +83,20 @@ var queryMakerFactory = function () {
                       }
                     }*/
                   ]
-          }
-        },
-        "highlight": {
-          "fields": {
-            "text": {},
-            "description": {}
-          }
+        }
+      },
+      "highlight": {
+        "fields": {
+          "text": {},
+          "text.ngram":{},
+          "description": {},
+          "description.ngram":{},
         }
       }
     }
-
   }
+
+  return queryMaker;
 }
 
 var appbaseSearchFactory = function ($http, queryMaker) {
@@ -111,6 +133,9 @@ var ESearchFactory = function ($http, queryMaker) {
         },
         data: queryMaker.make(text)
       }
+
+      console.log('posting..');
+
       $http(req).success(callback.bind(null, null)).error(callback);
     }
 

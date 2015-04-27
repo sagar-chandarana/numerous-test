@@ -3,8 +3,19 @@ var bodyCtrl = function ($scope, appbaseSearch, ESearch, queryMaker) {
   editor = new JSONEditor(container);
   editor.setMode('code');
   
+  $scope.setQuery = function() {
+    $scope.modifiedQuery = true;
+    
+    try {
+      queryMaker.set(editor.get());
+    } catch (c) {
+      console.log(c);
+    }
+  }
+  
   $scope.search = function () {
     if ($scope.text !== "") {
+      console.log('querying..')
       var chosenSource = config.chooseES? ESearch : appbaseSearch;
       chosenSource.search($scope.text, function (error, results) {
         if (error) {
@@ -36,6 +47,7 @@ var bodyCtrl = function ($scope, appbaseSearch, ESearch, queryMaker) {
         console.log('---------------------');
 
         $scope.partners = results.hits.hits;
+        var partner = $scope.partners[0];
       })
     } else {
       $scope.partners = [];
