@@ -30,8 +30,8 @@ module.exports = {
     }]
   },
   "es": {
-    "host": "tiff.sagar.ch:9200",
-    "index": "meliuz-ivy24"
+    "host": "ivy.sagar.ch:9200",
+    "index": "meliuz-ivy25"
   },
   "ab": {
     "app": "meliuzmock",
