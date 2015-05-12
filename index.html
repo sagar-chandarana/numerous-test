@@ -24,8 +24,11 @@
       <h2 ng-bind="user._source.userName"></h3>
       <div ng-if="user.highlight.fullName.length">
         <hr>
-        <div ng-repeat="hlName in user.highlight.fullName">
-          <span ng-bind-html="hlName | trustElement"></span>
+        <div ng-repeat="hlfName in user.highlight.fullName">
+          <span ng-bind-html="hlfName | trustElement"></span>
+        </div>
+        <div ng-repeat="hltName in user.highlight.twScreenName">
+          <span ng-bind-html="hltName | trustElement"></span>
         </div>
       </div>
     </li>

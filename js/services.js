@@ -10,13 +10,31 @@ var queryMakerFactory = function () {
     text = text.toLowerCase();
     return queryMaker.query ? queryMaker.query : {
       "query": {
-        "term": {
-          "fullName": text
+        bool: {
+          should: [
+            {
+              "term": {
+                "fullName": text
+              }
+            },
+            {
+              "term": {
+                "userName": text
+              }
+            },
+            {
+              "term": {
+                "twScreenName": text
+              }
+            }
+          ]
         }
       },
       "highlight": {
         "fields": {
-          "fullName": {}
+          "fullName": {},
+          "twScreenName": {},
+          userName: {}
         }
       }
     }
