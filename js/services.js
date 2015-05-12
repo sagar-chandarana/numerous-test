@@ -9,88 +9,14 @@ var queryMakerFactory = function () {
     console.log('making..')
     text = text.toLowerCase();
     return queryMaker.query ? queryMaker.query : {
-      "sort": [
-                /*{
-                  "is_commissioned": "desc"
-                },*/
-                "_score"
-              ],
-      query: {
-        "function_score": {
-          query: {
-            bool: {
-              should: [
-                {
-                  match: {
-                    text: {
-                      query: text,
-                      fuzziness: .9
-                    }
-                  }
-                },
-                {
-                  term: {
-                    "text.ngram" : text
-                  }
-                },
-                {
-                  match: {
-                    "text.ngram": {
-                      query: text,
-                      fuzziness: .9
-                    }
-                  }
-                },
-                {
-                  match: {
-                    description: {
-                      query: text,
-                      fuzziness: .9
-                    }
-                  }
-                },
-                {
-                  term: {
-                    "description.ngram": text
-                  }
-                },
-                {
-                  term: {
-                    "titulo.ngram": {
-                      value: text,
-                      boost: 30.0
-                    }
-                  }
-                },
-                {
-                  match: {
-                    titulo: {
-                      query: text,
-                      fuzziness: .9,
-                      boost: 30.0
-                    }
-                  }
-                }
-              ]
-            }
-          },
-          functions: [
-                    /*{
-                      "field_value_factor": {
-                        "field": "cashback",
-                        "factor": 3,
-                        "modifier": "log"
-                      }
-                    }*/
-                  ]
+      "query": {
+        "term": {
+          "fullName": text
         }
       },
       "highlight": {
         "fields": {
-          "text": {},
-          "text.ngram":{},
-          "description": {},
-          "description.ngram":{},
+          "fullName": {}
         }
       }
     }

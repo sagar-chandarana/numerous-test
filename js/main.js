@@ -1,4 +1,4 @@
-angular.module('Meliuz', ['ngSanitize'])
+angular.module('Numerous', ['ngSanitize'])
 .factory('queryMaker', [queryMakerFactory])
 .factory('appbaseSearch', ["$http", 'queryMaker', appbaseSearchFactory])
 .factory('ESearch', ["$http", 'queryMaker', ESearchFactory])

@@ -1,0 +1,76 @@
+{
+  "settings": {
+    "index": {
+      "analysis": {
+        "filter": {
+          "whitespace_remove": {
+            "pattern": " ",
+            "type": "pattern_replace",
+            "replacement": ""
+          }
+        },
+        "analyzer": {
+          "name_analyzer": {
+            "filter": [
+              "lowercase",
+              "whitespace_remove"
+            ],
+            "type": "custom",
+            "tokenizer": "ngram_tokenizer"
+          }
+        },
+        "tokenizer": {
+          "ngram_tokenizer": {
+            "type": "nGram",
+            "min_gram": "2",
+            "max_gram": "100"
+          }
+        }
+      }
+    }
+  },
+  "mappings": {
+    "users": {
+      "index_analyzer": "default_index",
+      "search_analyzer": "default_search",
+      "properties": {
+        "fullName": {
+          "type": "string",
+          "store": true,
+          "term_vector": "with_positions_offsets",
+          "analyzer": "name_analyzer"
+        },
+        "id": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "number": {
+          "type": "long"
+        },
+        "photoURL": {
+          "type": "string"
+        },
+        "rootPath": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "long"
+        },
+        "twScreenName": {
+          "type": "string",
+          "store": true,
+          "term_vector": "with_positions_offsets",
+          "analyzer": "name_analyzer"
+        },
+        "userName": {
+          "type": "string",
+          "store": true,
+          "term_vector": "with_positions_offsets",
+          "analyzer": "name_analyzer"
+        }
+      }
+    }
+  }
+}

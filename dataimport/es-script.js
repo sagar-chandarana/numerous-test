@@ -14,7 +14,7 @@ var store = function (collection, data, id) {
       index: config.es.index,
       type: collection,
       body: data,
-      id: data["_id"] ? data["_id"] : id
+      id: data["_id"] ? data["_id"] : (data["id"] ? data["id"] : id)
     }, callback);
   });
 }

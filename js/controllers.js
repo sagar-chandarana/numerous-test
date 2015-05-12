@@ -23,6 +23,7 @@ var bodyCtrl = function ($scope, appbaseSearch, ESearch, queryMaker) {
         }
 
         console.log('---------------------');
+        /*
         results.hits.hits.forEach(function (partner, i) {
           //console.log(i, partner._score, partner._source.cashback, partner._source.clicks, partner._source.total_sale);
           console.log(partner._source.titulo,
@@ -43,14 +44,14 @@ var bodyCtrl = function ($scope, appbaseSearch, ESearch, queryMaker) {
             }(),
             partner._source.cashback);
         })
+        */
         console.log(results.hits.hits);
         console.log('---------------------');
 
-        $scope.partners = results.hits.hits;
-        var partner = $scope.partners[0];
+        $scope.users = results.hits.hits;
       })
     } else {
-      $scope.partners = [];
+      $scope.users = [];
     }
   }
 

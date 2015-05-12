@@ -1,7 +1,7 @@
-<html ng-app="Meliuz">
+<html ng-app="Numerous">
 
 <head>
-  <title>Meliuz search</title>
+  <title>Numerous search</title>
   <link rel=stylesheet type="text/css" href="css/main.css">
   <link href="jsoneditor/dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
 </head>
@@ -20,23 +20,13 @@
   </form>
   
   <ul>
-    <li ng-repeat="partner in partners">
-      <h2 ng-bind="partner._source.titulo"></h3>
-      <div ng-if="partner.highlight.text.length || partner.highlight['text.ngram'].length">
-        Matches in "text"
+    <li ng-repeat="user in users">
+      <h2 ng-bind="user._source.userName"></h3>
+      <div ng-if="user.highlight.fullName.length">
         <hr>
-        <div ng-repeat="hlT in partner.highlight['text.ngram'].concat(partner.highlight.text)">
-          ...<span ng-bind-html="hlT | trustElement"></span>...
+        <div ng-repeat="hlName in user.highlight.fullName">
+          <span ng-bind-html="hlName | trustElement"></span>
         </div>
-      </div>
-      <div ng-if="partner.highlight.description.length || partner.highlight['description.ngram'].length">
-        <hr>
-        Matches in "description"
-        <hr>
-        <div ng-repeat="hlD in partner.highlight['description.ngram'].concat(partner.highlight.description)">
-          ...<span ng-bind-html="hlD | trustElement"></span>...
-        </div>
-        <hr>
       </div>
     </li>
   </ul>

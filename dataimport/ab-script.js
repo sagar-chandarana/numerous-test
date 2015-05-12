@@ -1,5 +1,5 @@
 appbase = require('appbasejs');
-appbase.credentials('meliuzmock','85acf56fc7b30e24078ffd4163d64e2a');
+//appbase.credentials('meliuzmock','85acf56fc7b30e24078ffd4163d64e2a');
 async = require('async');
 
 partners = [require('./me_reembolso.json')];

@@ -1,0 +1,56 @@
+[
+  {
+    "rootPath": "users/3250733499194973053",
+    "id": "3250733499194973053",
+    "userName": "cwood_test",
+    "fullName": "Charlie Wood",
+    "twScreenName": "",
+    "photoURL": "",
+    "timestamp": 1431184818521
+  },
+  {
+    "id": "4810908342994879860",
+    "userName": "cberns",
+    "fullName": "Charlie Berns",
+    "twScreenName": "",
+    "photoURL": "https://api.numerousapp.com/v1/users/4810908342994879860/photo",
+    "timestamp": 1431185181849,
+    "rootPath": "users/4810908342994879860"
+  },
+  {
+    "id": "1366696722834706130",
+    "userName": "thisisyaromeo",
+    "fullName": "Charlie V Moreno",
+    "twScreenName": "",
+    "photoURL": "",
+    "timestamp": 1431184924755,
+    "rootPath": "users/1366696722834706130"
+  },
+  {
+    "id": "2647568861464026851",
+    "userName": "phlegmatyk",
+    "fullName": "Charles",
+    "twScreenName": "phlegmatyk",
+    "photoURL": "",
+    "timestamp": 1431184995784,
+    "rootPath": "users/2647568861464026851"
+  },
+  {
+    "id": "7022252186925381676",
+    "userName": "gagirl07",
+    "fullName": "Char-Lynn Griffiths",
+    "twScreenName": "",
+    "photoURL": "",
+    "timestamp": 1431185177128,
+    "rootPath": "users/7022252186925381676"
+  },
+  {
+    "id": "5940535057436440426",
+    "userName": "CharlyDeNice",
+    "fullName": "Charly De Nice",
+    "twScreenName": "",
+    "photoURL": "",
+    "timestamp": 1431185707768,
+    "rootPath": "users/5940535057436440426"
+  }
+]
