@@ -60,5 +60,5 @@ var bodyCtrl = function ($scope, appbaseSearch, ESearch, queryMaker) {
     editor.set($scope.text !== "" ? queryMaker.make($scope.text) : {})
   });
 
-  $scope.text = "iphone";
+  $scope.text = "charliewood";
 }
