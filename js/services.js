@@ -26,6 +26,12 @@ var queryMakerFactory = function () {
               "term": {
                 "twScreenName": text
               }
+            },
+            {
+              "multi_match": {
+                "query": text,
+                "fields": ["fullName", "userName", "twScreenName"]
+              }
             }
           ]
         }
